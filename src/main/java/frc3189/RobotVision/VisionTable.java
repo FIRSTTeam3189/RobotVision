@@ -9,6 +9,8 @@ public class VisionTable {
 	private static final String TARGET_Y_KEY = "TargetY";
 	private static final String DISTANCE = "Distance";
 	private static final String IS_FOUND = "IsFound";
+	private static final String SHOULD_IMAGE_PROCESS_KEY = "ShouldImageProcess";
+	
 
 	/**
 	 * Gets the instance of the vision table to be used across the imaging
@@ -41,6 +43,8 @@ public class VisionTable {
 		table.putNumber(TARGET_Y_KEY, targetY);
 		table.putNumber(DISTANCE, distance);
 		table.putBoolean(IS_FOUND, targetFound);
+		
+		
 	}
 
 	/**
