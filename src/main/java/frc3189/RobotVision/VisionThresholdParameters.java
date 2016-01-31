@@ -121,4 +121,40 @@ public class VisionThresholdParameters {
 	public void setBlueHigh(int blueHigh) {
 		this.blueHigh = blueHigh;
 	}
+
+	/**
+	 * Gets the string value that represents this threshold parameter
+	 * 
+	 * @return the string value
+	 */
+	public String getStringValue() {
+		return String.format("%d, %d, %d, %d, %d, %d", redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh);
+	}
+
+	/**
+	 * Gets the threshold parameters from the string value
+	 * 
+	 * @param value
+	 *            the value to parse for the vision threshold parameters
+	 * @return the vision threshold parameters
+	 */
+	public static VisionThresholdParameters getFromStringValue(String value) {
+		// Split the sting value by comma and check if it contains 6 entries
+		String[] split = value.split(",");
+		if (split == null || split.length != 6) {
+			throw new IllegalArgumentException("value");
+		}
+
+		// Get the threshold values from the split
+		VisionThresholdParameters parameters = new VisionThresholdParameters();
+		parameters.redLow = Integer.parseInt(split[0].trim());
+		parameters.redHigh = Integer.parseInt(split[1].trim());
+		parameters.greenLow = Integer.parseInt(split[2].trim());
+		parameters.greenHigh = Integer.parseInt(split[3].trim());
+		parameters.blueLow = Integer.parseInt(split[4].trim());
+		parameters.blueHigh = Integer.parseInt(split[5].trim());
+
+		return parameters;
+	}
+
 }
