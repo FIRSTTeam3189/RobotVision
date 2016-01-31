@@ -5,6 +5,10 @@ import edu.wpi.first.wpilibj.networktables.NetworkTable;
 public class VisionTable {
 
 	private static final VisionTable instance = new VisionTable();
+	private static final String TARGET_X_KEY = "TargetX";
+	private static final String TARGET_Y_KEY = "TargetY";
+	private static final String DISTANCE = "Distance";
+	private static final String IS_FOUND = "IsFound";
 
 	/**
 	 * Gets the instance of the vision table to be used across the imaging
@@ -33,10 +37,10 @@ public class VisionTable {
 	 * Updates the value on the network table
 	 */
 	public void update() {
-		table.putNumber("TargetX", targetX);
-		table.putNumber("TargetY", targetY);
-		table.putNumber("Distance", distance);
-		table.putBoolean("IsFound", targetFound);
+		table.putNumber(TARGET_X_KEY, targetX);
+		table.putNumber(TARGET_Y_KEY, targetY);
+		table.putNumber(DISTANCE, distance);
+		table.putBoolean(IS_FOUND, targetFound);
 	}
 
 	/**
