@@ -1,6 +1,16 @@
 package frc3189.RobotVision;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Properties;
+
 public class VisionThresholdParameters {
+
+	private static final String VISION_PARAMETERS_KEY = "VisionThreshold";
+
 	private int redLow;
 	private int redHigh;
 	private int greenLow;
@@ -129,6 +139,50 @@ public class VisionThresholdParameters {
 	 */
 	public String getStringValue() {
 		return String.format("%d, %d, %d, %d, %d, %d", redLow, redHigh, greenLow, greenHigh, blueLow, blueHigh);
+	}
+
+	/**
+	 * Saves the vision parameters to the disk to the file given as a property
+	 * file
+	 * 
+	 * @param filePath
+	 *            the path to the file on the disk
+	 */
+	public void saveToDisk(String filePath) {
+		File file = new File(filePath);
+		file.getParentFile().mkdirs();
+
+		try {
+			Properties prop = new Properties();
+			file.createNewFile();
+			FileOutputStream out = new FileOutputStream(file);
+			prop.setProperty(VISION_PARAMETERS_KEY, this.getStringValue());
+			prop.store(out, "I like big bots and I cannot lie");
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException("filePath", e);
+		}
+	}
+
+	/**
+	 * Loads the visionParameters from a property file on the disk
+	 * 
+	 * @param filePath
+	 *            the path to the file on the disk
+	 * @return the vision threshold parameters
+	 */
+	public static VisionThresholdParameters loadFromDisk(String filePath) {
+		File file = new File(filePath);
+		try {
+			Properties prop = new Properties();
+			FileInputStream in = new FileInputStream(file);
+			prop.load(in);
+			return VisionThresholdParameters.getFromStringValue(prop.getProperty(VISION_PARAMETERS_KEY));
+		} catch (IOException e) {
+			e.printStackTrace();
+			throw new IllegalArgumentException("filePath", e);
+		}
 	}
 
 	/**
