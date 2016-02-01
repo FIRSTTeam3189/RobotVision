@@ -149,7 +149,8 @@ public class VisionThresholdParameters {
 	 */
 	public void saveToDisk(String filePath) {
 		File file = new File(filePath);
-		file.getParentFile().mkdirs();
+		if (file.getParentFile() != null)
+			file.getParentFile().mkdirs();
 
 		try {
 			Properties prop = new Properties();
